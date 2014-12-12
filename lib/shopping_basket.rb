@@ -7,16 +7,18 @@ class ShoppingBasket
   end
 
   def total
-    sum = BigDecimal.new("0.00")
-
-    @items.each do |item|
-      sum = sum + item.price
-    end
-
-    sum
+    sub_total = @items.reduce(BigDecimal.new("0")) { |sum, item| sum += item.price }
+    sub_total + total_tax
   end
 
   def total_tax
-    (total * @tax_rate) / 100
+    (total_for_non_exempt * @tax_rate) / 100
+  end
+
+  private
+
+  def total_for_non_exempt
+    non_exempt_items = @items.select { |item| item.tax_exempt? == false }
+    non_exempt_items.reduce(BigDecimal.new("0")) { |sum, item| sum += item.price }
   end
 end

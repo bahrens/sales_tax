@@ -28,13 +28,34 @@ describe ShoppingBasket do
     end
   end
 
-  describe "when getting a total for a single item" do
+  describe "when getting tax for a single item" do
     describe "when tax rates are not zero" do
       it "must return the total tax" do
         tax_rate = 10.0
         item = Item.new(BigDecimal.new("12.50"))
         shopping_basket = ShoppingBasket.new([item], tax_rate)
         shopping_basket.total_tax.must_equal(BigDecimal.new("1.25"))
+      end
+    end
+
+    describe "when the item is tax exempt" do
+      it "must return a total tax of zero" do
+        tax_rate = 10.0
+        item = Item.new(BigDecimal.new("12.50"), true)
+        shopping_basket = ShoppingBasket.new([item], tax_rate)
+        shopping_basket.total_tax.must_equal(BigDecimal.new("0.00"))
+      end
+    end
+  end
+
+  describe "when getting tax for both exempt and non-exempt items" do
+    describe "when tax rates are not zero" do
+      it "must return the total with tax" do
+        tax_rate = 10.0
+        exempt_item = Item.new(BigDecimal.new("12.50"), true)
+        non_exempt_item = Item.new(BigDecimal.new("15.00"), false)
+        shopping_basket = ShoppingBasket.new([exempt_item, non_exempt_item], tax_rate)
+        shopping_basket.total.must_equal(BigDecimal.new("29"))
       end
     end
   end
