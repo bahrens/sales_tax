@@ -12,7 +12,8 @@ class ShoppingBasket
   end
 
   def total_tax
-    (total_for_non_exempt * @tax_rate) / 100
+    tax = (total_for_non_exempt * @tax_rate) / 100
+    round_to_nearest_five_cents(tax)
   end
 
   private
@@ -20,5 +21,9 @@ class ShoppingBasket
   def total_for_non_exempt
     non_exempt_items = @items.select { |item| item.tax_exempt? == false }
     non_exempt_items.reduce(BigDecimal.new("0")) { |sum, item| sum += item.price }
+  end
+
+  def round_to_nearest_five_cents(number)
+    ((number / 0.05).ceil * 0.05)
   end
 end

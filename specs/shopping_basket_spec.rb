@@ -59,4 +59,42 @@ describe ShoppingBasket do
       end
     end
   end
+
+  describe "when rounding taxes" do
+    describe "when tax ends with .00" do
+      it "must not round up to nearest .05" do
+        tax_rate = 10.0
+        item = Item.new(BigDecimal.new("10.00"), false)
+        shopping_basket = ShoppingBasket.new([item], tax_rate)
+        shopping_basket.total_tax.must_equal(BigDecimal.new("1.00"))
+      end
+    end
+
+    describe "when tax ends with a number between .00 and .05" do
+      it "must round up to nearest .05" do
+        tax_rate = 10.0
+        item = Item.new(BigDecimal.new("10.10"), false)
+        shopping_basket = ShoppingBasket.new([item], tax_rate)
+        shopping_basket.total_tax.must_equal(BigDecimal.new("1.05"))
+      end
+    end
+
+    describe "when tax ends with .05" do
+      it "must not round up to nearest .05" do
+        tax_rate = 10.0
+        item = Item.new(BigDecimal.new("10.50"), false)
+        shopping_basket = ShoppingBasket.new([item], tax_rate)
+        shopping_basket.total_tax.must_equal(BigDecimal.new("1.05"))
+      end
+    end
+
+    describe "when tax ends with a number between .05 and .00" do
+      it "must round up to nearest .05" do
+        tax_rate = 10.0
+        item = Item.new(BigDecimal.new("10.60"), false)
+        shopping_basket = ShoppingBasket.new([item], tax_rate)
+        shopping_basket.total_tax.must_equal(BigDecimal.new("1.10"))
+      end
+    end
+  end
 end
