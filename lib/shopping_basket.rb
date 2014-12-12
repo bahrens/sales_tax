@@ -15,4 +15,8 @@ class ShoppingBasket
 
     sum
   end
+
+  def total_tax
+    (total * @tax_rate) / 100
+  end
 end
