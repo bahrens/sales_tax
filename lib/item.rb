@@ -4,7 +4,7 @@ class Item
   attr_accessor :price
 
   def initialize(price, tax_exempt:false)
-    @price = BigDecimal.new(price)
+    @price = price
     @tax_exempt = tax_exempt
   end
 
