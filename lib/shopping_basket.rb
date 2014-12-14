@@ -1,4 +1,5 @@
 require 'bigdecimal'
+require 'shopping_basket_item'
 
 class ShoppingBasket
   attr_accessor :items
@@ -9,42 +10,23 @@ class ShoppingBasket
     @import_tax_rate = import_tax_rate
   end
 
-  def add_item(item)
-    @items.push(item)
+  def add_item(item, quantity=1)
+    @items.push(
+      ShoppingBasketItem.new(
+        item,
+        quantity,
+        @tax_rate,
+        @import_tax_rate
+      )
+    )
   end
 
   def total
-    sub_total = @items.reduce(BigDecimal.new("0")) { |sum, item| sum += item.price }
-    sub_total + total_tax
+    @items.reduce(BigDecimal.new("0")) { |sum, item| sum += item.total }
   end
 
   def total_tax
-    total_non_exempt_tax + total_import_tax
+    @items.reduce(BigDecimal.new("0")) { |sum, item| sum += item.total_tax }
   end
 
-  private
-
-  def total_non_exempt_tax
-    non_exempt_tax = (total_for_non_exempt * @tax_rate) / 100
-    round_to_nearest_five_cents(non_exempt_tax)
-  end
-
-  def total_import_tax
-    import_tax = (total_for_imported * @import_tax_rate) / 100
-    round_to_nearest_five_cents(import_tax)
-  end
-
-  def total_for_non_exempt
-    non_exempt_items = @items.select { |item| item.tax_exempt? == false }
-    non_exempt_items.reduce(BigDecimal.new("0")) { |sum, item| sum += item.price }
-  end
-
-  def total_for_imported
-    imported_items = @items.select { |item| item.imported? }
-    imported_items.reduce(BigDecimal.new("0")) { |sum, item| sum += item.price }
-  end
-
-  def round_to_nearest_five_cents(number)
-    ((number / 0.05).ceil * 0.05)
-  end
 end
