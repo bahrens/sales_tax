@@ -1,6 +1,8 @@
 require 'bigdecimal'
 
 class ShoppingBasket
+  attr_accessor :items
+
   def initialize(items=[], tax_rate:0.0, import_tax_rate:0.0)
     @items = items
     @tax_rate = tax_rate
