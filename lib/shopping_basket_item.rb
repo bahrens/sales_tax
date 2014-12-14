@@ -20,7 +20,7 @@ class ShoppingBasketItem
   private
 
   def total_non_exempt_tax
-    non_exempt_tax = (total_for_non_exempt * @tax_rate) / BigDecimal("100")
+    non_exempt_tax = (total_for_non_exempt * @tax_rate) / BigDecimal.new("100")
     round_to_nearest_five_cents(non_exempt_tax)
   end
 
