@@ -51,4 +51,36 @@ describe ShoppingBasket do
       shopping_basket.total.must_equal(BigDecimal.new("65.15"))
     end
   end
+
+  describe "Exempt, and non-exempt, imports and non-imports" do
+    it "must calculate the correct tax and total" do
+      imported_perfume = Item.new(
+        BigDecimal.new("27.99"),
+        tax_exempt: false,
+        imported: true)
+
+      perfume = Item.new(
+        BigDecimal.new("18.99"),
+        tax_exempt: false,
+        imported: false)
+
+      pills = Item.new(
+        BigDecimal.new("9.75"),
+        tax_exempt: true,
+        imported: false)
+
+      chocolates = Item.new(
+        BigDecimal.new("11.25"),
+        tax_exempt: true,
+        imported: true)
+
+      shopping_basket = ShoppingBasket.new(
+        [imported_perfume, perfume, pills, chocolates],
+        tax_rate: 10.0,
+        import_tax_rate: 5.0)
+
+      shopping_basket.total_tax.must_equal(BigDecimal.new("6.70"))
+      shopping_basket.total.must_equal(BigDecimal.new("74.68"))
+    end
+  end
 end
