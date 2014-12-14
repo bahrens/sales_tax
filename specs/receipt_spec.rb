@@ -1,26 +1,33 @@
 require 'minitest/autorun'
 require 'receipt'
 require 'shopping_basket_helper'
-
-module ReceiptHelper
-  def receipt_example
-<<-RECEIPT
-1 book: 12.49
-1 music CD: 16.49
-1 chocolate bar: 0.85
-Sales Taxes: 1.50
-Total: 29.83
-RECEIPT
-  end
-end
+require 'receipt_helper'
 
 describe Receipt do
   include ReceiptHelper, ShoppingBasketHelper
-  describe "when printing a shopping basket" do
+  describe "when printing a shopping basket for scenario 1" do
     it "must print line items, total tax, and total" do
       shopping_basket = scenario1
       receipt = Receipt.new(shopping_basket)
-      receipt.print.must_equal(receipt_example)
+      receipt.print.must_equal(receipt_for_scenario1)
+    end
+  end
+
+  include ReceiptHelper, ShoppingBasketHelper
+  describe "when printing a shopping basket for scenario 2" do
+    it "must print line items, total tax, and total" do
+      shopping_basket = scenario2
+      receipt = Receipt.new(shopping_basket)
+      receipt.print.must_equal(receipt_for_scenario2)
+    end
+  end
+
+  include ReceiptHelper, ShoppingBasketHelper
+  describe "when printing a shopping basket for scenario 3" do
+    it "must print line items, total tax, and total" do
+      shopping_basket = scenario3
+      receipt = Receipt.new(shopping_basket)
+      receipt.print.must_equal(receipt_for_scenario3)
     end
   end
 end
