@@ -1,5 +1,7 @@
+require 'item'
+
 module ShoppingBasketHelper
-  def scenario1
+  def self.scenario1
     book = Item.new(
       BigDecimal.new("12.49"),
       name: "book",
@@ -29,7 +31,7 @@ module ShoppingBasketHelper
     shopping_basket
   end
 
-  def scenario2
+  def self.scenario2
     chocolates = Item.new(
       BigDecimal.new("10.00"),
       name: "imported box of chocolates",
@@ -52,7 +54,7 @@ module ShoppingBasketHelper
     shopping_basket
   end
 
-  def scenario3
+  def self.scenario3
     imported_perfume = Item.new(
       BigDecimal.new("27.99"),
       name: "imported bottle of perfume",

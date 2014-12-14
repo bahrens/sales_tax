@@ -1,0 +1,22 @@
+#!/usr/bin/env ruby
+
+require 'shopping_basket'
+require 'shopping_basket_helper'
+require 'receipt'
+
+puts "Output 1\n"
+basket = ShoppingBasketHelper.scenario1
+receipt = Receipt.new(basket)
+puts receipt.print
+puts
+
+puts "Output 2\n"
+basket = ShoppingBasketHelper.scenario2
+receipt = Receipt.new(basket)
+puts receipt.print
+puts
+
+puts "Output 3\n"
+basket = ShoppingBasketHelper.scenario3
+receipt = Receipt.new(basket)
+puts receipt.print
