@@ -3,14 +3,6 @@ require 'shopping_basket'
 require 'item'
 
 describe ShoppingBasket do
-  before do
-    @items = [
-      Item.new(BigDecimal.new("12.49")), 
-      Item.new(BigDecimal.new("14.99")), 
-      Item.new(BigDecimal.new("0.85"))
-    ]
-  end
-
   describe "when getting a total for an empty basket" do
     it "must return 0.00 for a total" do
       shopping_basket = ShoppingBasket.new()
