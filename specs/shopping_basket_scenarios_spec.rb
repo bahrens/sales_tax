@@ -21,9 +21,12 @@ describe ShoppingBasket do
         imported: false)
 
       shopping_basket = ShoppingBasket.new(
-        [book, music_cd, chocolate_bar],
         tax_rate: 10.0,
         import_tax_rate: 5.0)
+
+      shopping_basket.add_item(book)
+      shopping_basket.add_item(music_cd)
+      shopping_basket.add_item(chocolate_bar)
 
       shopping_basket.total_tax.must_equal(BigDecimal.new("1.50"))
       shopping_basket.total.must_equal(BigDecimal.new("29.83"))
@@ -43,9 +46,11 @@ describe ShoppingBasket do
         imported: true)
 
       shopping_basket = ShoppingBasket.new(
-        [chocolates, perfume],
         tax_rate: 10.0,
         import_tax_rate: 5.0)
+
+      shopping_basket.add_item(chocolates)
+      shopping_basket.add_item(perfume)
 
       shopping_basket.total_tax.must_equal(BigDecimal.new("7.65"))
       shopping_basket.total.must_equal(BigDecimal.new("65.15"))
@@ -75,9 +80,13 @@ describe ShoppingBasket do
         imported: true)
 
       shopping_basket = ShoppingBasket.new(
-        [imported_perfume, perfume, pills, chocolates],
         tax_rate: 10.0,
         import_tax_rate: 5.0)
+
+      shopping_basket.add_item(imported_perfume)
+      shopping_basket.add_item(perfume)
+      shopping_basket.add_item(pills)
+      shopping_basket.add_item(chocolates)
 
       shopping_basket.total_tax.must_equal(BigDecimal.new("6.70"))
       shopping_basket.total.must_equal(BigDecimal.new("74.68"))
