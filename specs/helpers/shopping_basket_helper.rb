@@ -19,8 +19,8 @@ module ShoppingBasketHelper
       imported: false)
 
     shopping_basket = ShoppingBasket.new(
-      tax_rate: 10.0,
-      import_tax_rate: 5.0)
+      tax_rate: BigDecimal.new("10.0"),
+      import_tax_rate: BigDecimal.new("5.0"))
 
     shopping_basket.add_item(book)
     shopping_basket.add_item(music_cd)
@@ -43,8 +43,8 @@ module ShoppingBasketHelper
       imported: true)
 
     shopping_basket = ShoppingBasket.new(
-      tax_rate: 10.0,
-      import_tax_rate: 5.0)
+      tax_rate: BigDecimal.new("10.0"),
+      import_tax_rate: BigDecimal.new("5.0"))
 
     shopping_basket.add_item(chocolates)
     shopping_basket.add_item(perfume)
@@ -78,8 +78,8 @@ module ShoppingBasketHelper
       imported: true)
 
     shopping_basket = ShoppingBasket.new(
-      tax_rate: 10.0,
-      import_tax_rate: 5.0)
+      tax_rate: BigDecimal.new("10.0"),
+      import_tax_rate: BigDecimal.new("5.0"))
 
     shopping_basket.add_item(imported_perfume)
     shopping_basket.add_item(perfume)

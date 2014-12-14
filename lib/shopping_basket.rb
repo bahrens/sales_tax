@@ -4,7 +4,10 @@ require 'shopping_basket_item'
 class ShoppingBasket
   attr_accessor :items
 
-  def initialize(tax_rate:0.0, import_tax_rate:0.0)
+  def initialize(
+    tax_rate: BigDecimal.new("0.0"), 
+    import_tax_rate: BigDecimal.new("0.0")
+  )
     @items = []
     @tax_rate = tax_rate
     @import_tax_rate = import_tax_rate
